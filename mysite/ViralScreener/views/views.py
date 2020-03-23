@@ -5,3 +5,7 @@ def homepage(request):
     return render(request, 'ViralScreener/home.html',
     context = {"AlertMessage":AlertMessage.objects.all})
 
+@login_required
+def screening(request):
+    return render(request, 'ViralScreener/screening.html',
+    context = {"AlertMessage":AlertMessage.objects.all})
