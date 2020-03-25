@@ -9,3 +9,13 @@ class AlertMessage(models.Model):
 
     def __str__(self):
         return self.name
+
+class Employee(models.Model):
+    FirstName = models.CharField(max_length=200)
+    MiddleName = models.CharField(max_length=200, blank=True)
+    LastName = models.CharField(max_length=200)
+    EmployeeID = models.CharField(max_length=200, blank=True)
+    models.UniqueConstraint(fields=['FirstName', 'MiddleName', 'LastName'], name='unique_person')
+    readonly_fields = ('id',)
+    def __str__(self):
+        return self.id
