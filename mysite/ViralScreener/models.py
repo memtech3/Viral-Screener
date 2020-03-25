@@ -16,6 +16,3 @@ class Employee(models.Model):
     LastName = models.CharField(max_length=200)
     EmployeeID = models.CharField(max_length=200, blank=True)
     models.UniqueConstraint(fields=['FirstName', 'MiddleName', 'LastName'], name='unique_person')
-    readonly_fields = ('id',)
-    def __str__(self):
-        return self.id
