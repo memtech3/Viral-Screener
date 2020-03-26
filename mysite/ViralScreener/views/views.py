@@ -6,6 +6,6 @@ def homepage(request):
     context = {"AlertMessage":AlertMessage.objects.all})
 
 @login_required
-def screening(request):
-    return render(request, 'ViralScreener/screening.html',
+def employeeScreening(request):
+    return render(request, 'ViralScreener/employeeScreening.html',
     context = {"AlertMessage":AlertMessage.objects.all})
