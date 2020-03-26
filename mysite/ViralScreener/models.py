@@ -1,23 +1,8 @@
 from django.db import models
 from django.conf import settings
-from django.utils import timezone
 
 
 # Create your models here.
-class AlertMessage(models.Model):
-    name = models.CharField(max_length=200)
-    color = models.CharField(max_length=200, choices=[('success', 'green'), ('primary', 'blue'), ('warning', 'yellow'), ('danger', 'red'),])
-    content = models.TextField()
-    dismissable = models.BooleanField()
-
-    def __str__(self):
-        return self.name
-
-class HomeMessages(models.Model):
-    name = models.CharField(max_length=200)
-    header = models.CharField(max_length=200)
-    content = models.TextField()
-
 class Employee(models.Model):
     id = models.AutoField(primary_key=True),
     LastName = models.CharField(max_length=200)

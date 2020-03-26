@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AlertMessage, HomeMessages, Employee, Visitor, EmployeeScreeningResponse, VisitorScreeningResponse
+from .models import Employee, Visitor, EmployeeScreeningResponse, VisitorScreeningResponse
 # Register your models here.
 class PersonAdmin(admin.ModelAdmin):
     ordering = ['LastName']
@@ -12,10 +12,6 @@ class EmployeeScreeningAdmin(admin.ModelAdmin):
 class VisitorScreeningAdmin(admin.ModelAdmin):
     autocomplete_fields = ("Visitor",)
 
-
-
-admin.site.register(AlertMessage)
-admin.site.register(HomeMessages)
 admin.site.register(Employee, PersonAdmin)
 admin.site.register(Visitor, PersonAdmin)
 admin.site.register(EmployeeScreeningResponse, EmployeeScreeningAdmin)
