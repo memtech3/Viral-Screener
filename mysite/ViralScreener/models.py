@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+
 
 # Create your models here.
 class AlertMessage(models.Model):
@@ -29,24 +31,38 @@ class Employee(models.Model):
 
 class Visitor(models.Model):
     id = models.AutoField(primary_key=True),
+    LastName = models.CharField(max_length=200)
     FirstName = models.CharField(max_length=200)
     MiddleName = models.CharField(max_length=200, blank=True)
-    LastName = models.CharField(max_length=200)
     models.UniqueConstraint(fields=['FirstName', 'MiddleName', 'LastName'], name='unique_person')
     readonly_fields = ('id',)
     def __str__(self):
-        return " ".join(('V'+str(self.id), self.FirstName, self.MiddleName, self.LastName))
+        return " ".join((self.LastName, self.FirstName, self.MiddleName))
 
-class EmployeeScreeningResponses(models.Model):#waiting for questions to ask
+class EmployeeScreeningResponse(models.Model):#waiting for questions to ask
     id = models.AutoField(primary_key=True),
     Screener = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
     Employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    Symptoms = models.CharField(max_length=200, choices=[('y', 'Yes'), ('n', 'No'), ('u', 'Unknown')])
     Contact = models.CharField(max_length=200, choices=[('y', 'Yes'), ('n', 'No'), ('u', 'Unknown')])
-    DateTime = models.DateTimeField #check in later to see if this is wrong
+    ElevatedTemp = models.CharField(max_length=200, choices=[('y', 'Yes'), ('n', 'No'), ('u', 'Unknown')])
+    DateTime = models.DateTimeField()
     def __str__(self):
         return ('R'+str(self.id))
 
-#create visitor screening model
+class VisitorScreeningResponse(models.Model):#waiting for questions to ask
+    id = models.AutoField(primary_key=True),
+    Screener = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    Visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
+    Symptoms = models.CharField(max_length=200, choices=[('y', 'Yes'), ('n', 'No'), ('u', 'Unknown')])
+    Contact = models.CharField(max_length=200, choices=[('y', 'Yes'), ('n', 'No'), ('u', 'Unknown')])
+    ElevatedTemp = models.CharField(max_length=200, choices=[('y', 'Yes'), ('n', 'No'), ('u', 'Unknown')])
+    DateTime = models.DateTimeField()
+    def __str__(self):
+        return ('R'+str(self.id))
